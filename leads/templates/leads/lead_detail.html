@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Detail</title>
+    <style>
+        body{
+            background-color: lightblue;
+            {% comment %} text-align: center; {% endcomment %}
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Here are the details of the {{lead.name}}</h1>    
+    <p>{{lead.email}}</p>
+    <p>{{lead.age}}</p>
+    <p>{{lead.phone_number}}</p>
+    <p>{{lead.agent}}</p>
+    <a href="/leads/">Back</a>
+
+</body>
+</html>
