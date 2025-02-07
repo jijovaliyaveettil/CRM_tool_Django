@@ -1,40 +1,33 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Lead
-from .forms import LeadForm
+from .forms import LeadForm, LeadModelForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 # Create your views here.
 
-def lead_list(request):
-    leads = Lead.objects.all()
-    context = {
-        "leads": leads
-    }
-    return render(request, 'leads/lead_list.html', context)
+class LeadListView(ListView):
+    template_name = "leads/lead_list.html"
+    queryset = Lead.objects.all()
+    context_object_name = "leads"
 
-def lead_detail(request, pk):
-    lead = Lead.objects.get(id=pk)
-    context = {
-        "lead": lead
-    }
-    return render(request, 'leads/lead_detail.html', context)
+class LeadDetailView(DetailView):
+    template_name = "leads/lead_detail.html"
+    queryset = Lead.objects.all()
+    context_object_name = "lead"
 
-def lead_create(request):
-    form = LeadForm()
-    if request.method == 'POST':
-        form = LeadForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            age = form.cleaned_data['age']
-            phone_number = form.cleaned_data['phone_number']
-            Lead.objects.create(
-                name=name,
-                email=email,
-                age=age,
-                phone_number=phone_number
-            )
-            return redirect('/leads/')
-    context = {
-        "form": form
-    }
-    return render(request, 'leads/leads_create.html', context)
+class LeadCreateView(CreateView):
+    template_name = "leads/leads_create.html"
+    form_class = LeadModelForm
+    success_url = reverse_lazy("leads:lead-list")
+
+class LeadUpdateView(UpdateView):
+    template_name = "leads/lead_update.html"
+    queryset = Lead.objects.all()
+    form_class = LeadModelForm
+    success_url = reverse_lazy("leads:lead-list")
+
+class LeadDeleteView(DeleteView):
+    template_name = "leads/lead_delete.html"
+    queryset = Lead.objects.all()
+    success_url = reverse_lazy("leads:lead-list")
