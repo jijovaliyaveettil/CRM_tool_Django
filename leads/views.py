@@ -6,20 +6,21 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
-class LeadListView(ListView):
+class LeadListView(LoginRequiredMixin, ListView):
     template_name = "leads/lead_list.html"
     queryset = Lead.objects.all()
     context_object_name = "leads"
 
-class LeadDetailView(DetailView):
+class LeadDetailView(LoginRequiredMixin, DetailView):
     template_name = "leads/lead_detail.html"
     queryset = Lead.objects.all()
     context_object_name = "lead"
 
-class LeadCreateView(CreateView):
+class LeadCreateView(LoginRequiredMixin, CreateView):
     template_name = "leads/leads_create.html"
     form_class = LeadModelForm
     success_url = reverse_lazy("leads:lead-list")
@@ -32,13 +33,13 @@ class LeadCreateView(CreateView):
         )
         return super().form_valid(form)
 
-class LeadUpdateView(UpdateView):
+class LeadUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "leads/lead_update.html"
     queryset = Lead.objects.all()
     form_class = LeadModelForm
     success_url = reverse_lazy("leads:lead-list")
 
-class LeadDeleteView(DeleteView):
+class LeadDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "leads/lead_delete.html"
     queryset = Lead.objects.all()
     success_url = reverse_lazy("leads:lead-list")
@@ -47,6 +48,9 @@ class SignUpView(CreateView):
     template_name = "registration/signup.html"
     form_class = SignUpForm
     success_url = reverse_lazy("login")
+
+def home(request):
+    return render(request, "home.html")
 
 # def lead_list(request):
 #     leads = Lead.objects.all()
