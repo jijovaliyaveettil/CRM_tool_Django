@@ -28,7 +28,7 @@ class Lead(models.Model):
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    organization = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True)
+    organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     # phone_number = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
