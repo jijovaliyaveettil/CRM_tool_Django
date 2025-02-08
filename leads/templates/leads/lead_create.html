@@ -1,3 +1,64 @@
+{% comment %} {% extends 'base.html' %}
+
+{% block title %}Create New Lead{% endblock %}
+
+{% block content %}
+<div class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+        <div class="px-4 sm:px-0">
+            <h3 class="text-2xl font-semibold leading-6 text-gray-900">Create New Lead</h3>
+            <p class="mt-1 text-sm text-gray-600">
+                Add a new lead to your CRM system.
+            </p>
+        </div>
+    </div>
+    <div class="mt-5 md:col-span-2 md:mt-0">
+        <form method="post">
+            {% csrf_token %}
+            <div class="shadow sm:overflow-hidden sm:rounded-md">
+                <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
+                    {% for field in form %}
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="{{ field.id_for_label }}" class="block text-sm font-medium leading-6 text-gray-900">
+                            {{ field.label }}
+                        </label>
+                        <div class="mt-2">
+                            {{ field.errors }}
+                            {{ field }}
+                        </div>
+                        {% if field.help_text %}
+                        <p class="mt-2 text-sm text-gray-500">{{ field.help_text }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                    <a href="{% url 'leads:lead-list' %}" 
+                       class="inline-flex justify-center rounded-md bg-white py-2 px-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-2">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                            class="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Create Lead
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Style form inputs */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+        @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm;
+    }
+</style>
+{% endblock %} {% endcomment %}
 {% extends 'base.html' %}
 
 {% block title %}Create New Lead{% endblock %}
@@ -56,6 +117,8 @@
     input[type="tel"],
     textarea {
         @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm;
+        background-color: #f9fafb; /* Light background color */
+        border: 1px solid #d1d5db; /* Light gray border */
     }
 </style>
 {% endblock %}
