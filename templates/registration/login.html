@@ -20,6 +20,12 @@
                     <label for="id_password" class="sr-only">Password</label>
                     {{ form.password }}
                 </div>
+                <div>
+                    <label for="id_password" class="sr-only"> Forgot Password</label>
+                    <a href="{% url 'reset-password' %}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                        Forgot your password?
+                    </a>
+                </div>
             </div>
 
             <div>

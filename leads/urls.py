@@ -10,12 +10,11 @@ from .views import (
 
 app_name = 'leads'  
 urlpatterns = [
-    path('leads/', LeadListView.as_view(), name='lead-list'),
-    path('leads/<int:pk>/', LeadDetailView.as_view(), name='lead-detail'),
-    path('leads/create/', LeadCreateView.as_view(), name='lead-create'),
-    path('leads/<int:pk>/update/', LeadUpdateView.as_view(), name='lead-update'),
-    path('leads/<int:pk>/delete/', LeadDeleteView.as_view(), name='lead-delete'),
-    path('', home, name='home'),
+    path('', LeadListView.as_view(), name='lead-list'),
+    path('<int:pk>/', LeadDetailView.as_view(), name='lead-detail'),
+    path('create/', LeadCreateView.as_view(), name='lead-create'),
+    path('<int:pk>/update/', LeadUpdateView.as_view(), name='lead-update'),
+    path('<int:pk>/delete/', LeadDeleteView.as_view(), name='lead-delete'),
 ]
 
 # app_name = 'leads'  
