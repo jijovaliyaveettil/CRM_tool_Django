@@ -12,13 +12,31 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class LeadListView(LoginRequiredMixin, ListView):
     template_name = "leads/lead_list.html"
-    queryset = Lead.objects.all()
     context_object_name = "leads"
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organizer:
+            queryset = Lead.objects.filter(organization=user.userprofile)
+        else:
+            queryset = Lead.objects.filter(agent=user.agent)
+
+        queryset = Lead.objects.filter(agent__user=user)
+        return queryset
 
 class LeadDetailView(LoginRequiredMixin, DetailView):
     template_name = "leads/lead_detail.html"
-    queryset = Lead.objects.all()
     context_object_name = "lead"
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organizer:
+            queryset = Lead.objects.filter(organization=user.userprofile)
+        else:
+            queryset = Lead.objects.filter(agent=user.agent)
+
+        queryset = Lead.objects.filter(agent__user=user)
+        return queryset
 
 class LeadCreateView(LoginRequiredMixin, CreateView):
     template_name = "leads/leads_create.html"
@@ -35,14 +53,32 @@ class LeadCreateView(LoginRequiredMixin, CreateView):
 
 class LeadUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "leads/lead_update.html"
-    queryset = Lead.objects.all()
     form_class = LeadModelForm
     success_url = reverse_lazy("leads:lead-list")
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organizer:
+            queryset = Lead.objects.filter(organization=user.userprofile)
+        else:
+            queryset = Lead.objects.filter(agent=user.agent)
+
+        queryset = Lead.objects.filter(agent__user=user)
+        return queryset
+
 class LeadDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "leads/lead_delete.html"
-    queryset = Lead.objects.all()
     success_url = reverse_lazy("leads:lead-list")
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organizer:
+            queryset = Lead.objects.filter(organization=user.userprofile)
+        else:
+            queryset = Lead.objects.filter(agent=user.agent)
+
+        queryset = Lead.objects.filter(agent__user=user)
+        return queryset
 
 class SignUpView(CreateView):
     template_name = "registration/signup.html"

@@ -3,19 +3,25 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from leads.models import Agent, Lead
-from .forms import AgentForm
+from .forms import AgentModelForm
+from .mixins import LoginandOrgMixin
 
-class AgentListView(LoginRequiredMixin, ListView):
+class AgentListView(LoginandOrgMixin, ListView):
     # model = Agent
     template_name = "agents/agent_list.html"
     context_object_name = "agents"
-    queryset = Agent.objects.all()
+
+    def get_queryset(self):
+        organization = self.request.user.userprofile
+        queryset = Agent.objects.filter(organization=organization)
+        return queryset
+
     # success_url = reverse_lazy('agents:agent-list')
 
 
-class AgentCreateView(LoginRequiredMixin, CreateView):
+class AgentCreateView(LoginandOrgMixin, CreateView):
     template_name = 'agents/agent_create.html'
-    form_class = AgentForm
+    form_class = AgentModelForm
     success_url = reverse_lazy('agents:agent-list')
 
     def form_valid(self, form):
@@ -24,18 +30,18 @@ class AgentCreateView(LoginRequiredMixin, CreateView):
         agent.save()
         return super().form_valid(form)
 
-class AgentDetailView(LoginRequiredMixin, DetailView):
+class AgentDetailView(LoginandOrgMixin, DetailView):
     template_name = 'agents/agent_detail.html'
     context_object_name = 'agent'
     queryset = Agent.objects.all()
 
-class AgentUpdateView(LoginRequiredMixin, UpdateView):
+class AgentUpdateView(LoginandOrgMixin, UpdateView):
     template_name = 'agents/agent_update.html'
-    form_class = AgentForm
+    form_class = AgentModelForm
     queryset = Agent.objects.all()
     success_url = reverse_lazy('agents:agent-list')
 
-class AgentDeleteView(LoginRequiredMixin, DeleteView):
+class AgentDeleteView(LoginandOrgMixin, DeleteView):
     template_name = 'agents/agent_delete.html'
     queryset = Agent.objects.all()
     success_url = reverse_lazy('agents:agent-list')
