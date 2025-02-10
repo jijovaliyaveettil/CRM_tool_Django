@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'leads',
     'agents',
-    # 'crispy_forms',
-    # "crispy_tailwind",
+    'crispy_forms',
+    "crispy_tailwind",
     # 'tailwind',
     # 'theme'
 ]
@@ -136,7 +136,7 @@ LOGIN_REDIRECT_URL = "leads:lead-list"
 LOGIN_URL = "login"
 LOGOUT_REDIRECT_URL = "login"
 
-# CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-# CRISPY_TEMPLATE_PACK = 'tailwind'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = 'tailwind'
 
 # TAILWIND_APP_NAME = 'theme'

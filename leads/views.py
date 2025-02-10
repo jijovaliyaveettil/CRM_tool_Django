@@ -76,7 +76,7 @@ def lead_detail(request, pk):
     return render(request, "leads/lead_detail.html", context)
 
 class LeadCreateView(LoginRequiredMixin, CreateView):
-    template_name = "leads/leads_create.html"
+    template_name = "leads/lead_create.html"
     form_class = LeadModelForm
     success_url = reverse_lazy("leads:lead-list")
     def form_valid(self, form):

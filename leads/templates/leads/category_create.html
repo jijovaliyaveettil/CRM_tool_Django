@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% comment %} {% load tailwind_filters %} {% endcomment %}
+{% load tailwind_filters %}
 
 {% block content %}
-{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+
 <div class="max-w-lg mx-auto">
     <a class="hover:text-blue-500" href="{% url 'leads:category-list' %}">Go back to categories</a>
     <div class="py-5 border-t border-gray-200">
@@ -10,7 +10,7 @@
     </div>
     <form method="post" class="mt-5">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button type='submit' class="w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">
             Submit
         </button>
