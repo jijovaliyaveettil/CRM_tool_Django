@@ -21,8 +21,8 @@ class AgentListView(LoginandOrgMixin, ListView):
     context_object_name = "agents"
 
     def get_queryset(self):
-        organization = self.request.user.userprofile
-        queryset = Agent.objects.filter(organization=organization)
+        organisation = self.request.user.userprofile
+        queryset = Agent.objects.filter(organisation=organisation)
         return queryset
 
 class AgentCreateView(LoginandOrgMixin, CreateView):
@@ -39,7 +39,7 @@ class AgentCreateView(LoginandOrgMixin, CreateView):
 
         Agent.objects.create(
             user=user,
-            organization=self.request.user.userprofile
+            organisation=self.request.user.userprofile
         )
         send_welcome_email(user)
         return super().form_valid(form)

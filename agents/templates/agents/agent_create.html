@@ -26,14 +26,14 @@
                 </div>
 
                 <div>
-                    <label for="{{ form.organization.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                        Organization
+                    <label for="{{ form.organisation.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Organisation
                     </label>
                     <div class="mt-1">
-                        {{ form.organization }}
+                        {{ form.organisation }}
                     </div>
-                    {% if form.organization.errors %}
-                        <p class="mt-2 text-sm text-red-600">{{ form.organization.errors }}</p>
+                    {% if form.organisation.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.organisation.errors }}</p>
                     {% endif %}
                 </div>
 
@@ -54,7 +54,7 @@
 
 {% block extra_css %}
 <style>
-    #id_user, #id_organization {
+    #id_user, #id_organisation {
         @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
     }
 </style>
