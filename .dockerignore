@@ -1,0 +1,18 @@
+# Python cache files
+*.pyc
+*.pyo
+__pycache__/
+
+# Environment variables file
+.env
+
+# Django static and media files
+/static/
+/media/
+
+# Local development settings
+/local_settings.py
+
+# Virtual environment
+venv/
+env/
